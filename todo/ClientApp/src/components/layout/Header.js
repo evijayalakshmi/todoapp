@@ -16,9 +16,10 @@ export class Header extends Component {
             textDecor: null,
         };
     }
+
     addTodo = (todoTitle) => {
         const todoItem = {
-            id: this.state.id,
+            id: Guid.create(),
             title: todoTitle,
             completed: false
         };
@@ -27,6 +28,7 @@ export class Header extends Component {
             todos: [...prevState.todos, todoItem]
         }))
     }
+
     markComplete = (id) => {
         id: this.state.id;
         const currentTodos = { ...this.state.todos };
@@ -44,20 +46,19 @@ export class Header extends Component {
             });
         }
     }
-    
+
     delTodo = (id) => {
-        debugger;
-        const oldTodos = { ...this.state.todos };
-        const index = _.findIndex(oldTodos, todo => todo.id === id);
-        this.state.todos.splice(id, 1);
-        this.setState({ todos: this.state.todos });
+        const oldTodos = this.state.todos;
+        _.remove(oldTodos, todo => todo.id === id);
+        this.setState({ todos: oldTodos });
     }
+
     render() {
         return (
             <div>
                 <div style={{ backgroundColor: '#F4F4F4' }}>
-                    <b class="ml-3"><em>Vijaya Lakshmi</em></b>
-                    <a href="#" class="float-right mr-3" style={{ color: '#0069D9' }}>
+                    <b className="ml-3"><em>Vijaya Lakshmi</em></b>
+                    <a href="#" className="float-right mr-3" style={{ color: '#0069D9' }}>
                         <b><em>LogOut</em></b>
                     </a>
                     <hr color="#FFFFFF" />
@@ -73,4 +74,3 @@ export class Header extends Component {
         );
     }
 }
-
