@@ -2,6 +2,11 @@
 import PropTypes from 'prop-types';
 
 export default class TodoItem extends Component {
+    constructor(props) {
+        super(props);
+
+    }
+
     getStyle = () => {
         return {
             background: '#F4F4F4',
@@ -18,9 +23,9 @@ export default class TodoItem extends Component {
                 <p className="container">
                     <div className="col-md-12" style={this.getStyle()}>
                         <input type="checkbox" onChange={this.props.markComplete.bind(this, id)} checked={completed ? 'checked' : ''} />{' '}
-                    {title}
-                    <button onClick={this.props.delTodo.bind(this, id)} style={{ float: 'right' }}>
-                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        {title}
+                        <button onClick={this.props.delTodo.bind(this, id)} style={{ float: 'right' }}>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
                     </div>
                 </p>

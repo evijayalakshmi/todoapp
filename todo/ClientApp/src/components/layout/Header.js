@@ -5,18 +5,20 @@ import { TodoItem } from '../TodoItem';
 import { Todos } from '../Todos';
 import { Guid } from "guid-typescript";
 import * as _ from 'lodash';
+import './Header.css';
 
 export class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            todos: []
+            id: Guid.create(),
+            todos: [],
+            textDecor: null,
         };
     }
     addTodo = (todoTitle) => {
-        debugger;
         const todoItem = {
-            id: Guid.create(),
+            id: this.state.id,
             title: todoTitle,
             completed: false
         };
@@ -26,18 +28,34 @@ export class Header extends Component {
         }))
     }
     markComplete = (id) => {
-        id: this.state.id
+        id: this.state.id;
+        const currentTodos = { ...this.state.todos };
+        if (!currentTodos[id].completed) {
+            currentTodos[id].completed = true;
+            this.setState({
+                todos: currentTodos
+            });
+        }
+        else {
+            currentTodos[id].completed = false;
+            currentTodos[id].textDecor = null
+            this.setState({
+                todos: currentTodos
+            });
+        }
     }
+    
     delTodo = (id) => {
         debugger;
         const oldTodos = { ...this.state.todos };
-        _.remove(oldTodos, todo => todo.id.value === id.value);
-        this.setState({ todos: oldTodos });
+        const index = _.findIndex(oldTodos, todo => todo.id === id);
+        this.state.todos.splice(id, 1);
+        this.setState({ todos: this.state.todos });
     }
     render() {
         return (
             <div>
-                <div style={{ backgroundColor: '#F4F4F4' }} className="text-center">
+                <div style={{ backgroundColor: '#F4F4F4' }}>
                     <b class="ml-3"><em>Vijaya Lakshmi</em></b>
                     <a href="#" class="float-right mr-3" style={{ color: '#0069D9' }}>
                         <b><em>LogOut</em></b>
@@ -55,3 +73,4 @@ export class Header extends Component {
         );
     }
 }
+
