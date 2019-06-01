@@ -1,0 +1,15 @@
+﻿.container {
+    max-width: 1250px;
+}
+
+#card {
+    background: #F1F1F1;
+    padding: 90px 90px 90px 90px;
+}
+
+.vertical-center {
+    /* min-height: 100%;  Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+    display: flex;
+    align-items: center;
+}

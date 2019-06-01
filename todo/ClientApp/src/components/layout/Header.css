@@ -1,3 +1,9 @@
-﻿.line{
-    text-decoration:line-through;
+﻿.myLabelClass {
+    display: inline;
+    
+}
+.style {
+    background: #F4F4F4;
+    border: 1px #0069D9 dotted;
+    color: #0069D9;
 }

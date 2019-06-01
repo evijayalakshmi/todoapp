@@ -13,7 +13,6 @@ export class Header extends Component {
         this.state = {
             id: Guid.create(),
             todos: [],
-            textDecor: null,
         };
     }
 
@@ -30,24 +29,35 @@ export class Header extends Component {
     }
 
     markComplete = (id) => {
-        id: this.state.id;
-        const currentTodos = { ...this.state.todos };
-        if (!currentTodos[id].completed) {
-            currentTodos[id].completed = true;
+        debugger;
+        const currentTodos = this.state.todos;
+        const index = _.findIndex(currentTodos, todo => todo.id === id);
+        if (!currentTodos[index].completed) {
+            currentTodos[index].completed = true;
             this.setState({
                 todos: currentTodos
             });
         }
         else {
-            currentTodos[id].completed = false;
-            currentTodos[id].textDecor = null
+            currentTodos[index].completed = false;
             this.setState({
                 todos: currentTodos
             });
         }
     }
+    editTodo = (e, id) => {
+        debugger;
+        const oldTodos = this.state.todos;
+        const currentIndex = _.findIndex(oldTodos, todo => todo.id === id);
+        oldTodos[currentIndex].title = e.target.value; // here edited text kavali Ela?
+        this.setState(
+            {
+                todo: oldTodos
+            });
+    }
 
     delTodo = (id) => {
+        debugger;
         const oldTodos = this.state.todos;
         _.remove(oldTodos, todo => todo.id === id);
         this.setState({ todos: oldTodos });
@@ -56,19 +66,23 @@ export class Header extends Component {
     render() {
         return (
             <div>
-                <div style={{ backgroundColor: '#F4F4F4' }}>
-                    <b className="ml-3"><em>Vijaya Lakshmi</em></b>
-                    <a href="#" className="float-right mr-3" style={{ color: '#0069D9' }}>
+                <div style={{ backgroundColor: '#007BFF' }} class="p-4">
+                    <b><em className="ml-3">Vijaya Lakshmi</em></b>
+                    <a href="#" className="float-right mr-3 pt-3" style={{ color: 'black' }}>
                         <b><em>LogOut</em></b>
                     </a>
-                    <hr color="#FFFFFF" />
                 </div>
+                <hr color="black" style={{ borderBottom: 'solid' }} />
+                <br />
+                <br />
+                <br />
                 <h1 className="text-center">ToDo-List </h1>
                 <br />
                 <AddTodo addTodo={(title) => this.addTodo(title)} />
                 <Todos todos={this.state.todos}
                     markComplete={(id) => this.markComplete(id)}
                     delTodo={(id) => this.delTodo(id)}
+                    editTodo={(e, id) => this.editTodo(e, id)}
                 />
             </div>
         );
